@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eoms.mapper.SysLoginErrorMapper">
+  <resultMap id="BaseResultMap" type="com.eoms.entity.SysLoginError">
+    <result column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="ERROR_DESC" jdbcType="VARCHAR" property="errorDesc" />
+    <result column="ERROR_DATE" jdbcType="VARCHAR" property="errorDate" />
+    <result column="IS_VALID" jdbcType="VARCHAR" property="isValid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    USER_ID, ERROR_DESC, ERROR_DATE, IS_VALID
+  </sql>
+  <select id="selectByExample" parameterType="com.eoms.entity.SysLoginErrorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_LOGIN_ERROR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.eoms.entity.SysLoginErrorExample">
+    delete from SYS_LOGIN_ERROR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.eoms.entity.SysLoginError">
+    insert into SYS_LOGIN_ERROR (USER_ID, ERROR_DESC, ERROR_DATE, 
+      IS_VALID)
+    values (#{userId,jdbcType=VARCHAR}, #{errorDesc,jdbcType=VARCHAR}, #{errorDate,jdbcType=VARCHAR}, 
+      #{isValid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eoms.entity.SysLoginError">
+    insert into SYS_LOGIN_ERROR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="errorDesc != null">
+        ERROR_DESC,
+      </if>
+      <if test="errorDate != null">
+        ERROR_DATE,
+      </if>
+      <if test="isValid != null">
+        IS_VALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="errorDesc != null">
+        #{errorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="errorDate != null">
+        #{errorDate,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null">
+        #{isValid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.eoms.entity.SysLoginErrorExample" resultType="java.lang.Long">
+    select count(*) from SYS_LOGIN_ERROR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYS_LOGIN_ERROR
+    <set>
+      <if test="record.userId != null">
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorDesc != null">
+        ERROR_DESC = #{record.errorDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorDate != null">
+        ERROR_DATE = #{record.errorDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isValid != null">
+        IS_VALID = #{record.isValid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYS_LOGIN_ERROR
+    set USER_ID = #{record.userId,jdbcType=VARCHAR},
+      ERROR_DESC = #{record.errorDesc,jdbcType=VARCHAR},
+      ERROR_DATE = #{record.errorDate,jdbcType=VARCHAR},
+      IS_VALID = #{record.isValid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from SYS_LOGIN_ERROR
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>

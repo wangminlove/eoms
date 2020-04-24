@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eoms.mapper.SysModuleMapper">
+  <resultMap id="BaseResultMap" type="com.eoms.entity.SysModule">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="PARENTID" jdbcType="VARCHAR" property="parentid" />
+    <result column="MODULE_LEVEL" jdbcType="VARCHAR" property="moduleLevel" />
+    <result column="MODULE_ORDER" jdbcType="VARCHAR" property="moduleOrder" />
+    <result column="META_ICON" jdbcType="VARCHAR" property="metaIcon" />
+    <result column="META_TITLE" jdbcType="VARCHAR" property="metaTitle" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="COMPONENT" jdbcType="VARCHAR" property="component" />
+    <result column="REDIRECT" jdbcType="VARCHAR" property="redirect" />
+    <result column="META_SHOW" jdbcType="VARCHAR" property="metaShow" />
+    <result column="META_HIDEHEADER" jdbcType="VARCHAR" property="metaHideheader" />
+    <result column="META_HIDECHILDREN" jdbcType="VARCHAR" property="metaHidechildren" />
+    <result column="META_HIDDENHEADERCONTENT" jdbcType="VARCHAR" property="metaHiddenheadercontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PARENTID, MODULE_LEVEL, MODULE_ORDER, META_ICON, META_TITLE, NAME, COMPONENT, 
+    REDIRECT, META_SHOW, META_HIDEHEADER, META_HIDECHILDREN, META_HIDDENHEADERCONTENT
+  </sql>
+  <select id="selectByExample" parameterType="com.eoms.entity.SysModuleExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_MODULE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_MODULE
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from SYS_MODULE
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.eoms.entity.SysModuleExample">
+    delete from SYS_MODULE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.eoms.entity.SysModule">
+    insert into SYS_MODULE (ID, PARENTID, MODULE_LEVEL, 
+      MODULE_ORDER, META_ICON, META_TITLE, 
+      NAME, COMPONENT, REDIRECT, 
+      META_SHOW, META_HIDEHEADER, META_HIDECHILDREN, 
+      META_HIDDENHEADERCONTENT)
+    values (#{id,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{moduleLevel,jdbcType=VARCHAR}, 
+      #{moduleOrder,jdbcType=VARCHAR}, #{metaIcon,jdbcType=VARCHAR}, #{metaTitle,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{component,jdbcType=VARCHAR}, #{redirect,jdbcType=VARCHAR}, 
+      #{metaShow,jdbcType=VARCHAR}, #{metaHideheader,jdbcType=VARCHAR}, #{metaHidechildren,jdbcType=VARCHAR}, 
+      #{metaHiddenheadercontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eoms.entity.SysModule">
+    insert into SYS_MODULE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="parentid != null">
+        PARENTID,
+      </if>
+      <if test="moduleLevel != null">
+        MODULE_LEVEL,
+      </if>
+      <if test="moduleOrder != null">
+        MODULE_ORDER,
+      </if>
+      <if test="metaIcon != null">
+        META_ICON,
+      </if>
+      <if test="metaTitle != null">
+        META_TITLE,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="component != null">
+        COMPONENT,
+      </if>
+      <if test="redirect != null">
+        REDIRECT,
+      </if>
+      <if test="metaShow != null">
+        META_SHOW,
+      </if>
+      <if test="metaHideheader != null">
+        META_HIDEHEADER,
+      </if>
+      <if test="metaHidechildren != null">
+        META_HIDECHILDREN,
+      </if>
+      <if test="metaHiddenheadercontent != null">
+        META_HIDDENHEADERCONTENT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleLevel != null">
+        #{moduleLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        #{moduleOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="metaIcon != null">
+        #{metaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="redirect != null">
+        #{redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="metaShow != null">
+        #{metaShow,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHideheader != null">
+        #{metaHideheader,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHidechildren != null">
+        #{metaHidechildren,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHiddenheadercontent != null">
+        #{metaHiddenheadercontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.eoms.entity.SysModuleExample" resultType="java.lang.Long">
+    select count(*) from SYS_MODULE
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update SYS_MODULE
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentid != null">
+        PARENTID = #{record.parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleLevel != null">
+        MODULE_LEVEL = #{record.moduleLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moduleOrder != null">
+        MODULE_ORDER = #{record.moduleOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaIcon != null">
+        META_ICON = #{record.metaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaTitle != null">
+        META_TITLE = #{record.metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.component != null">
+        COMPONENT = #{record.component,jdbcType=VARCHAR},
+      </if>
+      <if test="record.redirect != null">
+        REDIRECT = #{record.redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaShow != null">
+        META_SHOW = #{record.metaShow,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaHideheader != null">
+        META_HIDEHEADER = #{record.metaHideheader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaHidechildren != null">
+        META_HIDECHILDREN = #{record.metaHidechildren,jdbcType=VARCHAR},
+      </if>
+      <if test="record.metaHiddenheadercontent != null">
+        META_HIDDENHEADERCONTENT = #{record.metaHiddenheadercontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update SYS_MODULE
+    set ID = #{record.id,jdbcType=VARCHAR},
+      PARENTID = #{record.parentid,jdbcType=VARCHAR},
+      MODULE_LEVEL = #{record.moduleLevel,jdbcType=VARCHAR},
+      MODULE_ORDER = #{record.moduleOrder,jdbcType=VARCHAR},
+      META_ICON = #{record.metaIcon,jdbcType=VARCHAR},
+      META_TITLE = #{record.metaTitle,jdbcType=VARCHAR},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      COMPONENT = #{record.component,jdbcType=VARCHAR},
+      REDIRECT = #{record.redirect,jdbcType=VARCHAR},
+      META_SHOW = #{record.metaShow,jdbcType=VARCHAR},
+      META_HIDEHEADER = #{record.metaHideheader,jdbcType=VARCHAR},
+      META_HIDECHILDREN = #{record.metaHidechildren,jdbcType=VARCHAR},
+      META_HIDDENHEADERCONTENT = #{record.metaHiddenheadercontent,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eoms.entity.SysModule">
+    update SYS_MODULE
+    <set>
+      <if test="parentid != null">
+        PARENTID = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleLevel != null">
+        MODULE_LEVEL = #{moduleLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="moduleOrder != null">
+        MODULE_ORDER = #{moduleOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="metaIcon != null">
+        META_ICON = #{metaIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="metaTitle != null">
+        META_TITLE = #{metaTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="component != null">
+        COMPONENT = #{component,jdbcType=VARCHAR},
+      </if>
+      <if test="redirect != null">
+        REDIRECT = #{redirect,jdbcType=VARCHAR},
+      </if>
+      <if test="metaShow != null">
+        META_SHOW = #{metaShow,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHideheader != null">
+        META_HIDEHEADER = #{metaHideheader,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHidechildren != null">
+        META_HIDECHILDREN = #{metaHidechildren,jdbcType=VARCHAR},
+      </if>
+      <if test="metaHiddenheadercontent != null">
+        META_HIDDENHEADERCONTENT = #{metaHiddenheadercontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eoms.entity.SysModule">
+    update SYS_MODULE
+    set PARENTID = #{parentid,jdbcType=VARCHAR},
+      MODULE_LEVEL = #{moduleLevel,jdbcType=VARCHAR},
+      MODULE_ORDER = #{moduleOrder,jdbcType=VARCHAR},
+      META_ICON = #{metaIcon,jdbcType=VARCHAR},
+      META_TITLE = #{metaTitle,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      COMPONENT = #{component,jdbcType=VARCHAR},
+      REDIRECT = #{redirect,jdbcType=VARCHAR},
+      META_SHOW = #{metaShow,jdbcType=VARCHAR},
+      META_HIDEHEADER = #{metaHideheader,jdbcType=VARCHAR},
+      META_HIDECHILDREN = #{metaHidechildren,jdbcType=VARCHAR},
+      META_HIDDENHEADERCONTENT = #{metaHiddenheadercontent,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
